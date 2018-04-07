@@ -34,7 +34,7 @@ import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.offic
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "officeEntityManagerFactory", transactionManagerRef = "officeTransactionManager", basePackageClasses = {
     DeviceRepository.class })
-public class OfficeDataSource {
+public class OfficeDataSourceConfiguration {
 
     @Bean(name = "officeEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(

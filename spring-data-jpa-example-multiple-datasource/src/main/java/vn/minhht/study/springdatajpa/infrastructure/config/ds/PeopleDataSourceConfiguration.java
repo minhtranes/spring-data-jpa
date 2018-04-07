@@ -35,7 +35,7 @@ import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.peopl
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "peopleEntityManagerFactory", transactionManagerRef = "peopleTransactionManager", basePackageClasses = {
     DepartmentRepository.class })
-public class PeopleDataSource {
+public class PeopleDataSourceConfiguration {
 
     @Primary
     @Bean(name = "peopleEntityManagerFactory")
