@@ -41,7 +41,7 @@ public class ProjectOneDataSource {
 
     @Primary
     @Bean(name = "ds1EntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean barEntityManagerFactory(
+    public LocalContainerEntityManagerFactoryBean ds1EntityManagerFactory(
         final EntityManagerFactoryBuilder builder,
         @Qualifier("ds1DataSource") final DataSource dataSource) {
         return builder.dataSource(dataSource).packages(Department.class)
