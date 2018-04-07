@@ -6,10 +6,10 @@ spring:
     data.jpa.repositories.enabled: true
     jpa:
         database-platform: POSTGRESQL
-        generate-ddl: false
+        generate-ddl: true
         open-in-view: true
         show-sql: false
-        hibernate.ddl-auto: create
+        hibernate.ddl-auto: update
         properties:
             hibernate:
                 dialect: org.hibernate.dialect.PostgreSQL94Dialect
@@ -18,7 +18,7 @@ spring:
 datasource:
     ds1:
         driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://10.10.15.171:5432/project-one
+        url: jdbc:postgresql://10.10.15.171:5432/project-one?currentSchema=production
         username: postgres
         password: postgres
         type: org.apache.tomcat.jdbc.pool.DataSource
@@ -38,5 +38,4 @@ datasource:
         
 logging:
     level:
-        org.springframework.boot.autoconfigure.data: debug
-        org.springframework.boot.autoconfigure.jdbc: debug
+        org.hibernate: debug

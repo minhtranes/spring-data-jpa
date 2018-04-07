@@ -21,6 +21,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -32,28 +33,32 @@ import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.hr.De
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "ds1EntityManagerFactory"
-, transactionManagerRef = "ds1TransactionManager", basePackageClasses = {
+@EnableJpaRepositories(entityManagerFactoryRef = "ds1EntityManagerFactory", 
+transactionManagerRef = "ds1TransactionManager", 
+basePackageClasses = {
     DepartmentRepository.class })
 public class ProjectOneDataSource {
 
+    @Primary
+    @Bean(name = "ds1EntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean barEntityManagerFactory(
+        final EntityManagerFactoryBuilder builder,
+        @Qualifier("ds1DataSource") final DataSource dataSource) {
+        return builder.dataSource(dataSource).packages(Department.class)
+            .persistenceUnit("ds1").build();
+    }
+
+    @Primary
     @Bean(name = "ds1DataSource")
     @ConfigurationProperties(prefix = "datasource.ds1")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "ds1EntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean barEntityManagerFactory(
-        EntityManagerFactoryBuilder builder,
-        @Qualifier("ds1DataSource") DataSource dataSource) {
-        return builder.dataSource(dataSource).packages(Department.class)
-            .persistenceUnit("ds1").build();
-    }
-
+    @Primary
     @Bean(name = "ds1TransactionManager")
     public PlatformTransactionManager ds1TransactionManager(
-        @Qualifier("ds1EntityManagerFactory") EntityManagerFactory barEntityManagerFactory) {
+        @Qualifier("ds1EntityManagerFactory") final EntityManagerFactory barEntityManagerFactory) {
         return new JpaTransactionManager(barEntityManagerFactory);
     }
 }
