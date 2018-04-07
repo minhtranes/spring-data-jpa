@@ -56,3 +56,7 @@ datasource:
         testWhileIdle: true
         timeBetweenEvictionRunsMillis: 60000
         
+        
+logging:
+    level:
+        org.hibernate: debug

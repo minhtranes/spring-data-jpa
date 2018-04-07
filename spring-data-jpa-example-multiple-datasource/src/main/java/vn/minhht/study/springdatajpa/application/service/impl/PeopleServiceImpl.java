@@ -38,6 +38,7 @@ public class PeopleServiceImpl implements PeopleService {
             employee.setNumberOfDevice(
                 employee.getNumberOfDevice() + numberOfAdditionalDevice);
         }
+        
         return employeeRepository.save(employee);
     }
 
