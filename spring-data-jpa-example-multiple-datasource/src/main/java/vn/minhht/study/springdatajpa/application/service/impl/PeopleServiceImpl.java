@@ -15,11 +15,13 @@ package vn.minhht.study.springdatajpa.application.service.impl;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import vn.minhht.study.springdatajpa.application.service.PeopleService;
 import vn.minhht.study.springdatajpa.infrastructure.persistence.entity.people.Employee;
 import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.people.EmployeeRepository;
 
+@Service
 public class PeopleServiceImpl implements PeopleService {
 
     @Autowired
