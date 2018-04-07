@@ -10,12 +10,12 @@
  * Swiss Post Solution.
  * Floor 4-5-8, ICT Tower, Quang Trung Software City
  */
-package vn.minhht.study.springdatajpa.infrastructure.persistence.repository.hr;
+package vn.minhht.study.springdatajpa.infrastructure.persistence.repository.people;
 
 import org.springframework.data.repository.CrudRepository;
 
-import vn.minhht.study.springdatajpa.infrastructure.persistence.entity.hr.Department;
+import vn.minhht.study.springdatajpa.infrastructure.persistence.entity.people.Employee;
 
-public interface DepartmentRepository extends CrudRepository<Department, Long> {
+public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 }

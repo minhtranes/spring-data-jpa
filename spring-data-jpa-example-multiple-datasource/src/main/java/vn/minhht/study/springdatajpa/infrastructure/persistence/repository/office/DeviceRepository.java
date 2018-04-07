@@ -1,7 +1,7 @@
 /*
- * Class: DepartmentRepository
+ * Class: DeviceRepository
  *
- * Created on Apr 6, 2018
+ * Created on Apr 7, 2018
  *
  * (c) Copyright Swiss Post Solution, unpublished work
  * All use, disclosure, and/or reproduction of this material is prohibited
@@ -10,12 +10,12 @@
  * Swiss Post Solution.
  * Floor 4-5-8, ICT Tower, Quang Trung Software City
  */
-package vn.minhht.study.springdatajpa.infrastructure.persistence.repository.hr;
+package vn.minhht.study.springdatajpa.infrastructure.persistence.repository.office;
 
 import org.springframework.data.repository.CrudRepository;
 
-import vn.minhht.study.springdatajpa.infrastructure.persistence.entity.hr.Employee;
+import vn.minhht.study.springdatajpa.infrastructure.persistence.entity.office.Device;
 
-public interface EmployeeRepository extends CrudRepository<Employee, Long> {
+public interface DeviceRepository extends CrudRepository<Device, Long> {
 
 }

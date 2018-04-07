@@ -21,44 +21,38 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import vn.minhht.study.springdatajpa.infrastructure.persistence.entity.hr.Department;
-import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.hr.DepartmentRepository;
+import vn.minhht.study.springdatajpa.infrastructure.persistence.entity.office.Device;
+import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.office.DeviceRepository;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "ds1EntityManagerFactory", 
-transactionManagerRef = "ds1TransactionManager", 
-basePackageClasses = {
-    DepartmentRepository.class })
-public class ProjectOneDataSource {
+@EnableJpaRepositories(entityManagerFactoryRef = "officeEntityManagerFactory", transactionManagerRef = "officeTransactionManager", basePackageClasses = {
+    DeviceRepository.class })
+public class OfficeDataSource {
 
-    @Primary
-    @Bean(name = "ds1EntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean ds1EntityManagerFactory(
+    @Bean(name = "officeEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
         final EntityManagerFactoryBuilder builder,
-        @Qualifier("ds1DataSource") final DataSource dataSource) {
-        return builder.dataSource(dataSource).packages(Department.class)
-            .persistenceUnit("ds1").build();
+        @Qualifier("officeDataSource") final DataSource dataSource) {
+        return builder.dataSource(dataSource).packages(Device.class)
+            .persistenceUnit("office").build();
     }
 
-    @Primary
-    @Bean(name = "ds1DataSource")
-    @ConfigurationProperties(prefix = "datasource.ds1")
+    @Bean(name = "officeDataSource")
+    @ConfigurationProperties(prefix = "datasource.office")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Primary
-    @Bean(name = "ds1TransactionManager")
-    public PlatformTransactionManager ds1TransactionManager(
-        @Qualifier("ds1EntityManagerFactory") final EntityManagerFactory barEntityManagerFactory) {
-        return new JpaTransactionManager(barEntityManagerFactory);
+    @Bean(name = "officeTransactionManager")
+    public PlatformTransactionManager transactionManager(
+        @Qualifier("officeEntityManagerFactory") final EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 }
