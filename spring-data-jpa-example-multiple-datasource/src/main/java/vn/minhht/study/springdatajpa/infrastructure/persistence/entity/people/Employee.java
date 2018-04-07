@@ -36,6 +36,8 @@ public class Employee implements Serializable {
 
     private String lastName;
 
+    private Integer numberOfDevice;
+
     private Integer yearOfBirth;
 
     @OneToOne
@@ -58,6 +60,10 @@ public class Employee implements Serializable {
         return this.lastName;
     }
 
+    public Integer getNumberOfDevice() {
+        return this.numberOfDevice;
+    }
+
     public Integer getYearOfBirth() {
         return this.yearOfBirth;
     }
@@ -76,6 +82,10 @@ public class Employee implements Serializable {
 
     public void setLastName(final String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setNumberOfDevice(final Integer numberOfDevice) {
+        this.numberOfDevice = numberOfDevice;
     }
 
     public void setYearOfBirth(final Integer yearOfBirth) {

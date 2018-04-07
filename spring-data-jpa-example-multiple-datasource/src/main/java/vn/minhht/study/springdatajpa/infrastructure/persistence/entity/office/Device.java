@@ -31,48 +31,58 @@ public class Device implements Serializable {
 
     private String name;
 
-    private Integer purchaseYear;
+    private Long ownedBy;
 
     private Double price;
+
+    private Integer purchaseYear;
 
     @Id
     @SequenceGenerator(name = "device_seq", initialValue = 1, allocationSize = 1, sequenceName = "device_id_seq")
     @GeneratedValue(generator = "device_seq", strategy = GenerationType.SEQUENCE)
     public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getPurchaseYear() {
-        return purchaseYear;
-    }
-
-    public void setPurchaseYear(Integer purchaseYear) {
-        this.purchaseYear = purchaseYear;
+    public Long getOwnedBy() {
+        return this.ownedBy;
     }
 
     public Double getPrice() {
-        return price;
+        return this.price;
     }
 
-    public void setPrice(Double price) {
+    public Integer getPurchaseYear() {
+        return this.purchaseYear;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    public void setOwnedBy(final Long ownedBy) {
+        this.ownedBy = ownedBy;
+    }
+
+    public void setPrice(final Double price) {
         this.price = price;
+    }
+
+    public void setPurchaseYear(final Integer purchaseYear) {
+        this.purchaseYear = purchaseYear;
     }
 
     @Override
     public String toString() {
-        return "Device [id=" + id + ", name=" + name + ", purchaseYear="
-                + purchaseYear + ", price=" + price + "]";
+        return "Device [id=" + this.id + ", name=" + this.name + ", purchaseYear="
+                + this.purchaseYear + ", price=" + this.price + "]";
     }
 }
