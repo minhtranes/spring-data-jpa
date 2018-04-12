@@ -12,16 +12,10 @@
  */
 package vn.minhht.study.springdatajpa.infrastructure.config.ds;
 
-import java.sql.SQLException;
-
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.apache.tomcat.jdbc.pool.DataSourceProxy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -42,9 +36,6 @@ import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.offic
     DeviceRepository.class })
 public class OfficeDataSourceConfiguration {
 
-    private static final Logger LOGGER = LoggerFactory
-        .getLogger(OfficeDataSourceConfiguration.class);
-
     @Bean(name = "officeEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
         final EntityManagerFactoryBuilder builder,
@@ -63,29 +54,5 @@ public class OfficeDataSourceConfiguration {
     public PlatformTransactionManager transactionManager(
         @Qualifier("officeEntityManagerFactory") final EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
-    }
-
-    @Bean
-    @ConditionalOnProperty(prefix = "datasource.office", name = "jmx-enabled", havingValue = "true", matchIfMissing = true)
-    public Object officeDataSourceMBean(
-        @Qualifier("officeDataSource") DataSource dataSource) {
-        if (dataSource instanceof DataSourceProxy) {
-            try {
-                return ((DataSourceProxy) dataSource).createPool()
-                    .getJmxPool();
-            }
-            catch (SQLException ex) {
-                LOGGER.warn(
-                    "Failed to register connection pool writerDataSource to JMX server !",
-                    ex);
-            }
-        }
-        else {
-            LOGGER.warn(
-                "Not supported registering JMX for type: {}",
-                dataSource.getClass().getName());
-        }
-
-        return null;
     }
 }
