@@ -36,9 +36,9 @@ import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.peopl
 @EnableJpaRepositories(entityManagerFactoryRef = "peopleEntityManagerFactory", 
     transactionManagerRef = "peopleTransactionManager", 
     basePackageClasses = { DepartmentRepository.class })
-@Primary
 public class PeopleDataSourceConfiguration {
 
+    @Primary
     @Bean(name = "peopleEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
         final EntityManagerFactoryBuilder builder,
@@ -47,12 +47,14 @@ public class PeopleDataSourceConfiguration {
             .persistenceUnit("people").build();
     }
 
+    @Primary
     @Bean(name = "peopleDataSource")
     @ConfigurationProperties(prefix = "datasource.people")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
+    @Primary
     @Bean(name = "peopleTransactionManager")
     public PlatformTransactionManager peopleTransactionManager(
         @Qualifier("peopleEntityManagerFactory") final EntityManagerFactory entityManagerFactory) {

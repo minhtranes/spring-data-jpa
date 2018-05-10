@@ -12,13 +12,16 @@
  */
 package vn.minhht.study.springdatajpa.application.service.impl;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.minhht.study.springdatajpa.application.service.PeopleService;
+import vn.minhht.study.springdatajpa.infrastructure.persistence.entity.people.Department;
 import vn.minhht.study.springdatajpa.infrastructure.persistence.entity.people.Employee;
+import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.people.DepartmentRepository;
 import vn.minhht.study.springdatajpa.infrastructure.persistence.repository.people.EmployeeRepository;
 
 @Service
@@ -26,6 +29,24 @@ public class PeopleServiceImpl implements PeopleService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    
+    @Autowired
+    private DepartmentRepository departmentRepository;
+    
+    @PostConstruct
+    @Transactional
+    protected void init() {
+        Department dep=new Department();
+        dep.setName("Tech");
+        Employee manager=new Employee();
+        {
+            manager.setFirstName("Thuat");
+            manager.setLastName("Bui");
+        }
+        dep.setManager(manager);
+        departmentRepository.save(dep);
+        System.out.println("Inserted ");
+    }
 
     @Transactional
     @Override
