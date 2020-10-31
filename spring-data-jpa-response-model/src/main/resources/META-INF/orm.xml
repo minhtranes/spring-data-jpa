@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+    http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+	<description>My First JPA XML Application</description>
+	<package>vn.sps.study.sdj.jpa.src.entity</package>
+
+	<named-native-query name="findPersistRange" result-set-mapping="PersistRangeMapping">
+		<query>SELECT min(persist_order) as minRange, max(persist_order) as maxRange 
+            FROM process_event_minhtran with(index(po_ca)) 
+            WHERE created_at >= '2020-07-13 00:00:00' AND created_at &lt; '2020-07-14 00:00:00'</query>
+	</named-native-query>
+
+	<sql-result-set-mapping name="PersistRangeMapping">
+		<constructor-result
+			target-class="vn.sps.study.sdj.model.PersistRange">
+			<column name="minRange" class="java.lang.Long" />
+			<column name="maxRange" class="java.lang.Long" />
+		</constructor-result>
+	</sql-result-set-mapping>
+</entity-mappings>
