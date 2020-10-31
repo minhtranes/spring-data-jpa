@@ -24,7 +24,8 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "process_event_minhtran",indexes = {@Index(columnList = "persist_order,created_at", name="po_ca_1")})
+@Table(name = "process_event_minhtran", indexes = {
+    @Index(columnList = "persist_order,created_at", name = "po_ca_1") })
 @Access(AccessType.PROPERTY)
 public class SrcProcessEventEntity implements Serializable {
     private static final long serialVersionUID = -3512739974491753575L;

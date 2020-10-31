@@ -12,12 +12,13 @@
  */
 package vn.sps.study.sdj.jpa.src.repository;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 import vn.sps.study.sdj.jpa.src.entity.SrcProcessEventEntity;
@@ -30,7 +31,12 @@ public interface SrcProcessEventRepository
     Optional<SrcProcessEventEntity> findByPersistOrder(long persistOrder);
 
     @Query(nativeQuery = true, name = "findPersistRange")
-    PersistRange findPersistRange1(
-        @Param("fromTime") Date fromTime,
-        @Param("toTime") Date toTime);
+    PersistRange findPersistRange(
+        @Param("fromTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime fromTime,
+        @Param("toTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime toTime);
+
+    @Query
+    PersistRange lookForPersistRange(
+        @Param("fromTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime fromTime,
+        @Param("toTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime toTime);
 }

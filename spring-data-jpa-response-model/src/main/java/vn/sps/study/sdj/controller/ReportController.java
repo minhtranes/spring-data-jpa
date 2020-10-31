@@ -13,14 +13,15 @@
 package vn.sps.study.sdj.controller;
 
 import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.sps.study.sdj.jpa.src.repository.SrcProcessEventRepository;
@@ -37,19 +38,9 @@ public class ReportController {
     private SrcProcessEventRepository srcProcessEventRepository;
 
     @PostMapping("/persist-order-by-date")
-    public void reportPersistIdOf() {
-
-        //        Date fromDate = Date
-        //            .from(date.atStartOfDay().toInstant(ZoneOffset.UTC));
-        //        Date toDate = Date
-        //            .from(date.plusDays(1).atStartOfDay().toInstant(ZoneOffset.UTC));
-
-        Date fromTime = Date.from(
-            LocalDate.parse("2020-07-13").atStartOfDay()
-                .toInstant(ZoneOffset.UTC));
-        Date toTime = Date.from(
-            LocalDate.parse("2020-07-14").atStartOfDay()
-                .toInstant(ZoneOffset.UTC));
+    public void reportPersistIdOf(
+        @RequestParam(name = "fromTime", required = false, defaultValue = "2020-07-13 00:00:00") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime fromTime,
+        @RequestParam(name = "toTime", required = false, defaultValue = "2020-07-14 00:00:00") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime toTime) {
 
         LOGGER.info(
             "Finding persist order from [{}] to [{}]",
@@ -58,7 +49,7 @@ public class ReportController {
 
         long begin = System.currentTimeMillis();
         PersistRange persistRange = srcProcessEventRepository
-            .findPersistRange1(fromTime, toTime);
+            .findPersistRange(fromTime, toTime);
         if (persistRange != null) {
             LOGGER.info(
                 "Min: {} - Max: {}. Duration {} ms",
