@@ -5,7 +5,6 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
     http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
 	<description>My First JPA XML Application</description>
-	<package>vn.sps.study.sdj.jpa.src.entity</package>
 
 	<named-native-query name="findPersistRange" result-set-mapping="PersistRangeMapping">
 		<query>SELECT min(persist_order) as minRange, max(persist_order) as maxRange 
