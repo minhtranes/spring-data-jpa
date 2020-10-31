@@ -8,7 +8,7 @@
 
 	<named-native-query name="findPersistRange" result-set-mapping="PersistRangeMapping">
 		<query>SELECT min(persist_order) as minRange, max(persist_order) as maxRange 
-            FROM process_event_minhtran with(index(po_ca)) 
+            FROM process_event_minhtran with(index(po_ca_1_2)) 
             WHERE created_at >= :fromTime AND created_at &lt; :toTime</query>
 	</named-native-query>
 

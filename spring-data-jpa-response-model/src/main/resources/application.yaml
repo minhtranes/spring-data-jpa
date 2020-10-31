@@ -1,6 +1,10 @@
 spring:
+    profiles.active: default
     jmx.enabled: true
     datasource:
+        initialization-mode: always
+        continue-on-error: true
+        platform: mssql
         source:
             name: store-rdbms-db-44-cdipp-trid
             jdbc-url: jdbc:sqlserver://10.10.15.128:1433;databaseName=cdipp-trid;SendStringParametersAsUnicode=false
@@ -14,6 +18,7 @@ spring:
             password: admin
             driver-class: com.microsoft.sqlserver.jdbc.SQLServerDrive
     jpa:
+        generate-ddl: true
         hibernate.ddl-auto: none
         database-platform: org.hibernate.dialect.SQLServer2012Dialect
         show-sql: true
