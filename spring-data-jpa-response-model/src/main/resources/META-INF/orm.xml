@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <entity-mappings version="2.1"
-	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
     http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
-	<description>My First JPA XML Application</description>
+    <description>My First JPA XML Application</description>
 
-	<named-native-query name="findPersistRange" result-set-mapping="PersistRangeMapping">
-		<query>SELECT min(persist_order) as minRange, max(persist_order) as maxRange 
+    <named-native-query
+        name="SrcProcessEventEntity.findPersistRange">
+        <query>SELECT min(persist_order) as minRange, max(persist_order) as maxRange 
             FROM process_event_minhtran with(index(po_ca_1_2)) 
             WHERE created_at >= :fromTime AND created_at &lt; :toTime</query>
-	</named-native-query>
+    </named-native-query>
 
-	<sql-result-set-mapping name="PersistRangeMapping">
-		<constructor-result
-			target-class="vn.sps.study.sdj.model.PersistRange">
-			<column name="minRange" class="java.lang.Long" />
-			<column name="maxRange" class="java.lang.Long" />
-		</constructor-result>
-	</sql-result-set-mapping>
+    <sql-result-set-mapping
+        name="PersistRangeMapping">
+        <constructor-result
+            target-class="vn.sps.study.sdj.model.PersistRange">
+            <column name="minRange" class="java.lang.Long" />
+            <column name="maxRange" class="java.lang.Long" />
+        </constructor-result>
+    </sql-result-set-mapping>
 </entity-mappings>
