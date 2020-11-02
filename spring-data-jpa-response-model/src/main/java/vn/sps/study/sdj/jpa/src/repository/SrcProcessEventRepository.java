@@ -22,7 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Repository;
 
 import vn.sps.study.sdj.jpa.src.entity.SrcProcessEventEntity;
-import vn.sps.study.sdj.model.PersistRange;
+import vn.sps.study.sdj.model.PersistR;
 
 @Repository
 public interface SrcProcessEventRepository
@@ -30,13 +30,13 @@ public interface SrcProcessEventRepository
 
     Optional<SrcProcessEventEntity> findByPersistOrder(long persistOrder);
 
-    @Query(nativeQuery = true, name = "findPersistRange")
-    PersistRange findPersistRange(
+    @Query(nativeQuery = true)
+    PersistR findPersistRange(
         @Param("fromTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime fromTime,
         @Param("toTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime toTime);
 
     @Query
-    PersistRange lookForPersistRange(
+    PersistR lookForPersistRange(
         @Param("fromTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime fromTime,
         @Param("toTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime toTime);
 }

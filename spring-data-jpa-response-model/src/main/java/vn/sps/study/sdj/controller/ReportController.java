@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import vn.sps.study.sdj.jpa.src.repository.SrcProcessEventRepository;
-import vn.sps.study.sdj.model.PersistRange;
+import vn.sps.study.sdj.model.PersistR;
 
 @RestController
 @RequestMapping("/report")
@@ -47,7 +47,7 @@ public class ReportController {
             toTime.toString());
 
         long begin = System.currentTimeMillis();
-        PersistRange persistRange = srcProcessEventRepository
+        PersistR persistRange = srcProcessEventRepository
             .findPersistRange(fromTime, toTime);
         if (persistRange != null) {
             LOGGER.info(
